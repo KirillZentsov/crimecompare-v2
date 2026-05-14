@@ -8,7 +8,7 @@
 - [x] Endpoint: `GET /v1/health`
 - [x] Endpoint: `POST /v1/postcodes/search` (autocomplete)
 - [x] Endpoint: `POST /v1/compare` (main comparison logic)
-- [ ] Unit tests: `risk_score`, `make_circle_polygon`, postcode validation
+- [x] Unit tests: `risk_score`, `make_circle_polygon`, postcode validation
 - [x] `pyproject.toml` with all dependencies
 - [ ] `Dockerfile` for Railway
 - [ ] Deploy to Railway, bind `api.crimecompare.co.uk`
