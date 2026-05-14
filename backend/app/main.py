@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
 from app.core.supabase import init_supabase, supabase_available
-from app.routers import postcodes
+from app.routers import postcodes, compare
 
 
 @asynccontextmanager
@@ -29,6 +29,7 @@ app.add_middleware(
 
 
 app.include_router(postcodes.router)
+app.include_router(compare.router)
 
 
 @app.get("/v1/health")

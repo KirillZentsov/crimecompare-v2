@@ -7,7 +7,7 @@
 - [x] FastAPI skeleton (`main.py`, `app/` structure, health endpoint)
 - [x] Endpoint: `GET /v1/health`
 - [x] Endpoint: `POST /v1/postcodes/search` (autocomplete)
-- [ ] Endpoint: `POST /v1/compare` (main comparison logic)
+- [x] Endpoint: `POST /v1/compare` (main comparison logic)
 - [ ] Unit tests: `risk_score`, `make_circle_polygon`, postcode validation
 - [x] `pyproject.toml` with all dependencies
 - [ ] `Dockerfile` for Railway
