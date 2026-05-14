@@ -1,8 +1,10 @@
 from typing import Optional
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
+
     app_env: str = "dev"
 
     supabase_url: Optional[str] = None
@@ -18,10 +20,6 @@ class Settings(BaseSettings):
     admin_key: Optional[str] = None
 
     allowed_origins: str = "http://localhost:3000,https://crimecompare.co.uk"
-
-    class model_config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
 
     def is_production(self) -> bool:
         return self.app_env.lower() in ("prod", "production")

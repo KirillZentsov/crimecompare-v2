@@ -3,13 +3,13 @@
 ## Phase 1 — Backend (3–4 days)
 
 - [x] Initialize repo structure (CONTEXT, ROADMAP, DECISIONS, CLAUDE, README, .gitignore)
-- [ ] Copy `crime_api_async.py`, `postcode_autocomplete.py`, `quota_manager.py` into `backend/app/`
-- [ ] FastAPI skeleton (`main.py`, `app/` structure, health endpoint)
-- [ ] Endpoint: `GET /v1/health`
+- [x] Copy `crime_api_async.py`, `postcode_autocomplete.py`, `quota_manager.py` into `backend/app/`
+- [x] FastAPI skeleton (`main.py`, `app/` structure, health endpoint)
+- [x] Endpoint: `GET /v1/health`
 - [ ] Endpoint: `POST /v1/postcodes/search` (autocomplete)
 - [ ] Endpoint: `POST /v1/compare` (main comparison logic)
 - [ ] Unit tests: `risk_score`, `make_circle_polygon`, postcode validation
-- [ ] `pyproject.toml` with all dependencies
+- [x] `pyproject.toml` with all dependencies
 - [ ] `Dockerfile` for Railway
 - [ ] Deploy to Railway, bind `api.crimecompare.co.uk`
 - [ ] Smoke test all endpoints on prod
@@ -54,4 +54,4 @@
 
 ---
 
-_Last updated: Phase 1 in progress_
+_Last updated: Phase 1 — skeleton ready, endpoints next_
