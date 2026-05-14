@@ -10,7 +10,7 @@
 - [x] Endpoint: `POST /v1/compare` (main comparison logic)
 - [x] Unit tests: `risk_score`, `make_circle_polygon`, postcode validation
 - [x] `pyproject.toml` with all dependencies
-- [ ] `Dockerfile` for Railway
+- [x] `Dockerfile` for Railway
 - [ ] Deploy to Railway, bind `api.crimecompare.co.uk`
 - [ ] Smoke test all endpoints on prod
 
