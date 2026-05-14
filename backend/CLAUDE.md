@@ -1,5 +1,25 @@
 # backend/CLAUDE.md
 
+## ⚠️ Before ANY pip install — activate venv first
+
+```bash
+# Create venv (once, if it doesn't exist)
+python -m venv .venv
+
+# Activate — Windows PowerShell
+.venv\Scripts\Activate.ps1
+
+# Activate — bash/zsh
+source .venv/bin/activate
+
+# Then install
+pip install -e ".[dev]"
+```
+
+Never run `pip install` without an active venv. Installing globally pollutes the system Python.
+
+---
+
 ## Stack
 
 Python 3.12+, FastAPI, Uvicorn, httpx (async HTTP), supabase-py.
