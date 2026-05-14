@@ -6,7 +6,7 @@
 - [x] Copy `crime_api_async.py`, `postcode_autocomplete.py`, `quota_manager.py` into `backend/app/`
 - [x] FastAPI skeleton (`main.py`, `app/` structure, health endpoint)
 - [x] Endpoint: `GET /v1/health`
-- [ ] Endpoint: `POST /v1/postcodes/search` (autocomplete)
+- [x] Endpoint: `POST /v1/postcodes/search` (autocomplete)
 - [ ] Endpoint: `POST /v1/compare` (main comparison logic)
 - [ ] Unit tests: `risk_score`, `make_circle_polygon`, postcode validation
 - [x] `pyproject.toml` with all dependencies
