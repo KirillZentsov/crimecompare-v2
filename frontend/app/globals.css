@@ -74,8 +74,8 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: system-ui, Arial, sans-serif;
+  --font-mono: ui-monospace, Menlo, monospace;
 }
 
 body {

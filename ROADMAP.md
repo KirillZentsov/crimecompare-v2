@@ -16,11 +16,11 @@
 
 ## Phase 2 — Frontend Skeleton (2–3 days)
 
-- [ ] Next.js 15 scaffold in `frontend/` (App Router, TypeScript, Tailwind)
+- [x] Next.js 15 scaffold in `frontend/` (App Router, TypeScript, Tailwind)
 - [x] shadcn/ui init + base components
-- [ ] Page `/compare` — empty form shell
+- [x] Page `/compare` — empty form shell
+- [x] TanStack Query setup
 - [ ] Postcode autocomplete component (wired to `/v1/postcodes/search`)
-- [ ] TanStack Query setup
 - [ ] Loading states & progress indicator ("Looking up postcodes → Fetching data → Calculating scores")
 - [ ] Error states (invalid postcode, API down, quota exceeded)
 
@@ -54,4 +54,4 @@
 
 ---
 
-_Last updated: Phase 1 complete ✓ — Phase 2 next (Next.js scaffold)_
+_Last updated: Phase 2 in progress — /compare form shell + TanStack Query done, autocomplete next_
