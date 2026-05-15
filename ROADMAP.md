@@ -17,7 +17,7 @@
 ## Phase 2 — Frontend Skeleton (2–3 days)
 
 - [ ] Next.js 15 scaffold in `frontend/` (App Router, TypeScript, Tailwind)
-- [ ] shadcn/ui init + base components
+- [x] shadcn/ui init + base components
 - [ ] Page `/compare` — empty form shell
 - [ ] Postcode autocomplete component (wired to `/v1/postcodes/search`)
 - [ ] TanStack Query setup

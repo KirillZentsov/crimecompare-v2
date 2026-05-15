@@ -54,3 +54,27 @@ Dynamic route `/compare/[a]/[b]` with Next.js SSR. Each pair gets its own OG tag
 
 **Decision:**
 Formula and weights are frozen. Any change requires a new ADR and explicit discussion before implementation.
+
+---
+
+## ADR-005 — shadcn/ui v2 (base-nova) with Slate colour palette
+
+**Date:** 2026-05-15
+**Status:** Accepted
+
+**Context:**
+Phase 2 requires a UI component library. shadcn/ui is the standard choice for Next.js + Tailwind projects. By the time of implementation, shadcn released v2 which replaced the old "default"/"new-york" style split with a unified "base-nova" preset built on `@base-ui/react` (instead of `@radix-ui/react-*`).
+
+**Decision:**
+Use shadcn/ui v2 (`base-nova` preset) with:
+- Base colour: **Slate** (OKLCH palette, CSS custom properties)
+- CSS variables: enabled (`@theme inline` mapping for Tailwind v4)
+- Icon library: lucide-react
+
+Components added at init:
+`button`, `input`, `select`, `tabs`, `badge`, `card`, `skeleton`
+
+**Consequences:**
+- `@base-ui/react` is the primitive layer (replaces Radix UI).
+- `tw-animate-css` handles animations (replaces `tailwindcss-animate`).
+- Slate variables are defined manually in `globals.css` — shadcn v2 init does not auto-populate them for Tailwind v4 projects.
