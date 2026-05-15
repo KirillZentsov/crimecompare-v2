@@ -11,8 +11,8 @@
 - [x] Unit tests: `risk_score`, `make_circle_polygon`, postcode validation
 - [x] `pyproject.toml` with all dependencies
 - [x] `Dockerfile` for Railway
-- [ ] Deploy to Railway, bind `api.crimecompare.co.uk`
-- [ ] Smoke test all endpoints on prod
+- [x] Deploy to Railway, bind `api.crimecompare.co.uk`
+- [x] Smoke test all endpoints on prod
 
 ## Phase 2 — Frontend Skeleton (2–3 days)
 
@@ -54,4 +54,4 @@
 
 ---
 
-_Last updated: Phase 1 — skeleton ready, endpoints next_
+_Last updated: Phase 1 complete ✓ — Phase 2 next (Next.js scaffold)_
