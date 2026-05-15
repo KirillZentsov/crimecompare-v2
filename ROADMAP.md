@@ -20,7 +20,7 @@
 - [x] shadcn/ui init + base components
 - [x] Page `/compare` — empty form shell
 - [x] TanStack Query setup
-- [ ] Postcode autocomplete component (wired to `/v1/postcodes/search`)
+- [x] Postcode autocomplete component (wired to `/v1/postcodes/search`)
 - [ ] Loading states & progress indicator ("Looking up postcodes → Fetching data → Calculating scores")
 - [ ] Error states (invalid postcode, API down, quota exceeded)
 
@@ -54,4 +54,4 @@
 
 ---
 
-_Last updated: Phase 2 in progress — /compare form shell + TanStack Query done, autocomplete next_
+_Last updated: Phase 2 in progress — autocomplete done, loading + error states next_

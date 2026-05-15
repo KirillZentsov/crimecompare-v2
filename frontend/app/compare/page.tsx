@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { PostcodeAutocomplete } from "@/components/postcode-autocomplete"
 
 const RADIUS_OPTIONS = [
   { value: "5min",  label: "5 min walk" },
@@ -15,14 +15,21 @@ const RADIUS_OPTIONS = [
 
 type RadiusValue = typeof RADIUS_OPTIONS[number]["value"]
 
+const COLOR_A = "#1D9E75"
+const COLOR_B = "#378ADD"
+
 export default function ComparePage() {
   const [postcodeA, setPostcodeA] = useState("")
   const [postcodeB, setPostcodeB] = useState("")
   const [radius, setRadius] = useState<RadiusValue>("10min")
 
+  const canSubmit =
+    postcodeA.replace(/\s/g, "").length >= 5 &&
+    postcodeB.replace(/\s/g, "").length >= 5
+
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    // wired up in next task
+    // wired up in next task (loading + compare call)
   }
 
   return (
@@ -40,45 +47,35 @@ export default function ComparePage() {
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Postcode A */}
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-foreground">
+            <label className="flex items-center gap-2 text-sm font-medium text-foreground">
               <span
-                className="inline-block w-5 h-5 rounded-full mr-2 align-middle"
-                style={{ backgroundColor: "#1D9E75" }}
+                className="inline-block w-3 h-3 rounded-full shrink-0"
+                style={{ backgroundColor: COLOR_A }}
               />
               Postcode A
             </label>
-            <Input
-              type="text"
-              placeholder="e.g. SW1A 1AA"
+            <PostcodeAutocomplete
               value={postcodeA}
-              onChange={(e) => setPostcodeA(e.target.value.toUpperCase())}
-              autoComplete="off"
-              spellCheck={false}
-              maxLength={8}
-              className="uppercase tracking-widest text-base"
-              style={{ borderColor: postcodeA ? "#1D9E75" : undefined }}
+              onChange={setPostcodeA}
+              placeholder="e.g. SW1A 1AA"
+              accentColor={COLOR_A}
             />
           </div>
 
           {/* Postcode B */}
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-foreground">
+            <label className="flex items-center gap-2 text-sm font-medium text-foreground">
               <span
-                className="inline-block w-5 h-5 rounded-full mr-2 align-middle"
-                style={{ backgroundColor: "#378ADD" }}
+                className="inline-block w-3 h-3 rounded-full shrink-0"
+                style={{ backgroundColor: COLOR_B }}
               />
               Postcode B
             </label>
-            <Input
-              type="text"
-              placeholder="e.g. E1 6AN"
+            <PostcodeAutocomplete
               value={postcodeB}
-              onChange={(e) => setPostcodeB(e.target.value.toUpperCase())}
-              autoComplete="off"
-              spellCheck={false}
-              maxLength={8}
-              className="uppercase tracking-widest text-base"
-              style={{ borderColor: postcodeB ? "#378ADD" : undefined }}
+              onChange={setPostcodeB}
+              placeholder="e.g. E1 6AN"
+              accentColor={COLOR_B}
             />
           </div>
 
@@ -106,12 +103,7 @@ export default function ComparePage() {
             </div>
           </div>
 
-          <Button
-            type="submit"
-            size="lg"
-            className="w-full"
-            disabled={postcodeA.trim().length < 5 || postcodeB.trim().length < 5}
-          >
+          <Button type="submit" size="lg" className="w-full" disabled={!canSubmit}>
             Compare
           </Button>
         </form>
