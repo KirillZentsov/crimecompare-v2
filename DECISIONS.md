@@ -78,3 +78,35 @@ Components added at init:
 - `@base-ui/react` is the primitive layer (replaces Radix UI).
 - `tw-animate-css` handles animations (replaces `tailwindcss-animate`).
 - Slate variables are defined manually in `globals.css` — shadcn v2 init does not auto-populate them for Tailwind v4 projects.
+
+---
+
+## ADR-006 — Overlay chart = grouped overlapping bars, not stacked
+
+**Date:** 2026-05-17
+**Status:** Accepted
+
+**Context:**
+The categories chart needs a side-by-side / overlay toggle. Multiple visual interpretations of "overlay" exist.
+
+**Decision:**
+Overlay = grouped overlapping bars at the same X-tick. B bar rendered at 80% of A bar width, both at 0.75 opacity. Tooltip shows both values + percentage difference.
+
+**Consequences:**
+Stacked bars were rejected because they imply a combined total, which confuses "comparison" with "sum." Overlapping bars preserve the individual scale while making relative size immediately visible.
+
+---
+
+## ADR-007 — react-leaflet map deferred to Phase 4
+
+**Date:** 2026-05-17
+**Status:** Accepted
+
+**Context:**
+Phase 3 includes a map in the ROADMAP, but react-leaflet requires SSR workarounds (`dynamic` import with `ssr: false`), a Leaflet CSS import, and adds leaflet + @types/leaflet to the bundle.
+
+**Decision:**
+Move the map to Phase 4 alongside the dynamic route `/compare/[a]/[b]`. The SSR handling for the map aligns naturally with the SSR work already planned for shareable URLs.
+
+**Consequences:**
+Phase 3 ships KPI cards, winner banner, and 3 Recharts charts without the map complexity. Phase 4 adds the map once the SSR infrastructure is in place.

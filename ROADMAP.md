@@ -26,21 +26,21 @@
 
 ## Phase 3 — Charts & UI (4–5 days)
 
-- [ ] KPI cards (total crimes, risk score, density per km²)
-- [ ] Winner banner
-- [ ] Recharts: crime categories (side-by-side / overlay toggle)
-- [ ] Recharts: 3-month trend
-- [ ] Recharts: severity breakdown
-- [ ] react-leaflet map with postcode markers + polygons
+- [x] KPI cards (total crimes, risk score, density per km²)
+- [x] Winner banner
+- [x] Recharts: crime categories (side-by-side / overlay toggle)
+- [x] Recharts: 3-month trend
+- [x] Recharts: severity breakdown
 - [ ] Text summary block
 
-## Phase 4 — Shareable URLs + SEO (1–2 days)
+## Phase 4 — Shareable URLs + SEO + Map (1–2 days)
 
 - [ ] Dynamic route `/compare/[a]/[b]` with SSR
 - [ ] SSR pre-rendering for Google indexing
 - [ ] OG tags (title, description, image) per postcode pair
 - [ ] Sitemap generation
 - [ ] Canonical URLs
+- [ ] react-leaflet map with postcode markers + circle polygons (deferred from Phase 3 — SSR complexity fits here alongside dynamic routes work)
 
 ## Phase 5 — Polish (2 days)
 
@@ -54,4 +54,4 @@
 
 ---
 
-_Last updated: Phase 2 complete ✓ — Phase 3 next (KPI cards, charts, map)_
+_Last updated: Phase 3 mostly done — text summary block remaining, then Phase 4_

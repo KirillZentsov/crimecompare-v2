@@ -6,6 +6,8 @@ import { AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { PostcodeAutocomplete } from "@/components/postcode-autocomplete"
 import { CompareProgress } from "@/components/compare-progress"
+import { CompareResults } from "@/components/results/compare-results"
+import { CompareResponse } from "@/types/compare"
 
 const RADIUS_OPTIONS = [
   { value: "5min",  label: "5 min walk" },
@@ -39,7 +41,7 @@ function parseApiError(status: number, detail: unknown): string {
   return "Something went wrong. Please try again."
 }
 
-async function runCompare(body: CompareRequest) {
+async function runCompare(body: CompareRequest): Promise<CompareResponse> {
   const res = await fetch(`${API_URL}/v1/compare`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -116,28 +118,9 @@ export default function ComparePage() {
     )
   }
 
-  // ── Success placeholder (Phase 3 will replace this) ────────────────────────
+  // ── Success ────────────────────────────────────────────────────────────────
   if (mutation.isSuccess) {
-    return (
-      <main className="min-h-screen bg-background flex flex-col items-center justify-center px-4 py-12">
-        <div className="w-full max-w-lg space-y-6 text-center">
-          <div className="space-y-2">
-            <p className="text-sm text-muted-foreground">Crime comparison</p>
-            <h2 className="text-2xl font-bold">
-              <span style={{ color: COLOR_A }}>{postcodeA}</span>
-              <span className="text-muted-foreground mx-3">vs</span>
-              <span style={{ color: COLOR_B }}>{postcodeB}</span>
-            </h2>
-          </div>
-          <p className="text-muted-foreground text-sm">
-            Data fetched — charts and scores coming in Phase 3.
-          </p>
-          <Button variant="outline" onClick={handleReset}>
-            Compare different postcodes
-          </Button>
-        </div>
-      </main>
-    )
+    return <CompareResults data={mutation.data} onReset={handleReset} />
   }
 
   // ── Form ───────────────────────────────────────────────────────────────────
