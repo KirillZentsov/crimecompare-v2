@@ -31,7 +31,7 @@
 - [x] Recharts: crime categories (side-by-side / overlay toggle)
 - [x] Recharts: 3-month trend
 - [x] Recharts: severity breakdown
-- [ ] Text summary block
+- [x] Text summary block
 
 ## Phase 4 — Shareable URLs + SEO + Map (1–2 days)
 
@@ -54,4 +54,4 @@
 
 ---
 
-_Last updated: Phase 3 mostly done — text summary block remaining, then Phase 4_
+_Last updated: Phase 3 complete ✓ — Phase 4 next (shareable URLs, SEO, map)_

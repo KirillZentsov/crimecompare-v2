@@ -7,6 +7,7 @@ import { KpiCards } from "./kpi-cards"
 import { CategoriesChart } from "./categories-chart"
 import { TrendChart } from "./trend-chart"
 import { SeverityChart } from "./severity-chart"
+import { TextSummary } from "./text-summary"
 
 const COLOR_A = "#1D9E75"
 const COLOR_B = "#378ADD"
@@ -59,6 +60,7 @@ export function CompareResults({ data, onReset }: Props) {
         <CategoriesChart data={data} />
         <TrendChart data={data} />
         <SeverityChart data={data} />
+        <TextSummary data={data} />
       </div>
     </div>
   )
