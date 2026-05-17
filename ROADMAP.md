@@ -21,8 +21,8 @@
 - [x] Page `/compare` — empty form shell
 - [x] TanStack Query setup
 - [x] Postcode autocomplete component (wired to `/v1/postcodes/search`)
-- [ ] Loading states & progress indicator ("Looking up postcodes → Fetching data → Calculating scores")
-- [ ] Error states (invalid postcode, API down, quota exceeded)
+- [x] Loading states & progress indicator ("Looking up postcodes → Fetching data → Calculating scores")
+- [x] Error states (invalid postcode, API down, quota exceeded)
 
 ## Phase 3 — Charts & UI (4–5 days)
 
@@ -54,4 +54,4 @@
 
 ---
 
-_Last updated: Phase 2 in progress — autocomplete done, loading + error states next_
+_Last updated: Phase 2 complete ✓ — Phase 3 next (KPI cards, charts, map)_

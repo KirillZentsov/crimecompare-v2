@@ -1,8 +1,11 @@
 "use client"
 
 import { useState } from "react"
+import { useMutation } from "@tanstack/react-query"
+import { AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { PostcodeAutocomplete } from "@/components/postcode-autocomplete"
+import { CompareProgress } from "@/components/compare-progress"
 
 const RADIUS_OPTIONS = [
   { value: "5min",  label: "5 min walk" },
@@ -17,11 +20,44 @@ type RadiusValue = typeof RADIUS_OPTIONS[number]["value"]
 
 const COLOR_A = "#1D9E75"
 const COLOR_B = "#378ADD"
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000"
+
+interface CompareRequest {
+  postcode_a: string
+  postcode_b: string
+  radius: string
+}
+
+function parseApiError(status: number, detail: unknown): string {
+  if (status === 429) return "Daily comparison limit reached. Try again tomorrow."
+  if (status === 400) {
+    if (typeof detail === "string") return detail
+    return "One or more postcodes weren't recognised. Please check and try again."
+  }
+  if (status === 422) return "Please check your postcode format and try again."
+  if (status >= 500) return "The crime data service is temporarily unavailable. Please try again."
+  return "Something went wrong. Please try again."
+}
+
+async function runCompare(body: CompareRequest) {
+  const res = await fetch(`${API_URL}/v1/compare`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  })
+  if (!res.ok) {
+    const payload = await res.json().catch(() => ({}))
+    throw new Error(parseApiError(res.status, payload.detail))
+  }
+  return res.json()
+}
 
 export default function ComparePage() {
   const [postcodeA, setPostcodeA] = useState("")
   const [postcodeB, setPostcodeB] = useState("")
   const [radius, setRadius] = useState<RadiusValue>("10min")
+
+  const mutation = useMutation({ mutationFn: runCompare })
 
   const canSubmit =
     postcodeA.replace(/\s/g, "").length >= 5 &&
@@ -29,9 +65,82 @@ export default function ComparePage() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    // wired up in next task (loading + compare call)
+    if (!canSubmit) return
+    mutation.mutate({
+      postcode_a: postcodeA.replace(/\s/g, "").toUpperCase(),
+      postcode_b: postcodeB.replace(/\s/g, "").toUpperCase(),
+      radius,
+    })
   }
 
+  function handleReset() {
+    mutation.reset()
+  }
+
+  // ── Loading ────────────────────────────────────────────────────────────────
+  if (mutation.isPending) {
+    return (
+      <main className="min-h-screen bg-background flex flex-col items-center justify-center px-4 py-12">
+        <div className="w-full max-w-lg space-y-4">
+          <p className="text-sm text-muted-foreground text-center">
+            Comparing{" "}
+            <span className="font-semibold" style={{ color: COLOR_A }}>{postcodeA}</span>
+            {" "}vs{" "}
+            <span className="font-semibold" style={{ color: COLOR_B }}>{postcodeB}</span>
+          </p>
+          <CompareProgress />
+        </div>
+      </main>
+    )
+  }
+
+  // ── Error ──────────────────────────────────────────────────────────────────
+  if (mutation.isError) {
+    return (
+      <main className="min-h-screen bg-background flex flex-col items-center justify-center px-4 py-12">
+        <div className="w-full max-w-lg space-y-6">
+          <div className="flex gap-3 rounded-lg border border-destructive/30 bg-destructive/5 p-4">
+            <AlertCircle className="size-5 shrink-0 text-destructive mt-0.5" />
+            <div className="space-y-1">
+              <p className="text-sm font-medium text-destructive">Comparison failed</p>
+              <p className="text-sm text-muted-foreground">
+                {mutation.error.message}
+              </p>
+            </div>
+          </div>
+          <Button variant="outline" className="w-full" onClick={handleReset}>
+            Try again
+          </Button>
+        </div>
+      </main>
+    )
+  }
+
+  // ── Success placeholder (Phase 3 will replace this) ────────────────────────
+  if (mutation.isSuccess) {
+    return (
+      <main className="min-h-screen bg-background flex flex-col items-center justify-center px-4 py-12">
+        <div className="w-full max-w-lg space-y-6 text-center">
+          <div className="space-y-2">
+            <p className="text-sm text-muted-foreground">Crime comparison</p>
+            <h2 className="text-2xl font-bold">
+              <span style={{ color: COLOR_A }}>{postcodeA}</span>
+              <span className="text-muted-foreground mx-3">vs</span>
+              <span style={{ color: COLOR_B }}>{postcodeB}</span>
+            </h2>
+          </div>
+          <p className="text-muted-foreground text-sm">
+            Data fetched — charts and scores coming in Phase 3.
+          </p>
+          <Button variant="outline" onClick={handleReset}>
+            Compare different postcodes
+          </Button>
+        </div>
+      </main>
+    )
+  }
+
+  // ── Form ───────────────────────────────────────────────────────────────────
   return (
     <main className="min-h-screen bg-background flex flex-col items-center justify-center px-4 py-12">
       <div className="w-full max-w-lg space-y-8">
@@ -45,13 +154,9 @@ export default function ComparePage() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Postcode A */}
           <div className="space-y-2">
             <label className="flex items-center gap-2 text-sm font-medium text-foreground">
-              <span
-                className="inline-block w-3 h-3 rounded-full shrink-0"
-                style={{ backgroundColor: COLOR_A }}
-              />
+              <span className="inline-block w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: COLOR_A }} />
               Postcode A
             </label>
             <PostcodeAutocomplete
@@ -62,13 +167,9 @@ export default function ComparePage() {
             />
           </div>
 
-          {/* Postcode B */}
           <div className="space-y-2">
             <label className="flex items-center gap-2 text-sm font-medium text-foreground">
-              <span
-                className="inline-block w-3 h-3 rounded-full shrink-0"
-                style={{ backgroundColor: COLOR_B }}
-              />
+              <span className="inline-block w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: COLOR_B }} />
               Postcode B
             </label>
             <PostcodeAutocomplete
@@ -79,11 +180,8 @@ export default function ComparePage() {
             />
           </div>
 
-          {/* Radius */}
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-foreground">
-              Search radius
-            </label>
+            <label className="block text-sm font-medium text-foreground">Search radius</label>
             <div className="flex flex-wrap gap-2">
               {RADIUS_OPTIONS.map((opt) => (
                 <button
