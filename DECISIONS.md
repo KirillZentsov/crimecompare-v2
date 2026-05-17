@@ -97,6 +97,24 @@ Stacked bars were rejected because they imply a combined total, which confuses "
 
 ---
 
+## ADR-008 — Shareable URL structure: `/compare/[a]/[b]`, radius fixed at 10 min
+
+**Date:** 2026-05-17
+**Status:** Accepted
+
+**Context:**
+Each postcode-pair comparison needs a canonical, indexable URL. Two options: encode radius in the URL (`/compare/[a]/[b]/[radius]`) or use a fixed default.
+
+**Decision:**
+`/compare/[a]/[b]` with radius always defaulting to 10 min walk. Radius is not in the URL.
+
+**Consequences:**
+- Clean, short URLs that are easy to share and remember.
+- Google indexes one canonical page per postcode pair (not 6 variants per pair).
+- Users who want a different radius use the form at `/compare`.
+
+---
+
 ## ADR-007 — react-leaflet map deferred to Phase 4
 
 **Date:** 2026-05-17

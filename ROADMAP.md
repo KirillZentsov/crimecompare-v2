@@ -35,12 +35,12 @@
 
 ## Phase 4 — Shareable URLs + SEO + Map (1–2 days)
 
-- [ ] Dynamic route `/compare/[a]/[b]` with SSR
-- [ ] SSR pre-rendering for Google indexing
-- [ ] OG tags (title, description, image) per postcode pair
-- [ ] Sitemap generation
-- [ ] Canonical URLs
-- [ ] react-leaflet map with postcode markers + circle polygons (deferred from Phase 3 — SSR complexity fits here alongside dynamic routes work)
+- [x] Dynamic route `/compare/[a]/[b]` with SSR
+- [x] SSR pre-rendering for Google indexing
+- [x] OG tags (title, description, image) per postcode pair
+- [x] Sitemap generation
+- [x] Canonical URLs
+- [x] react-leaflet map with postcode markers + circle polygons
 
 ## Phase 5 — Polish (2 days)
 
@@ -54,4 +54,4 @@
 
 ---
 
-_Last updated: Phase 3 complete ✓ — Phase 4 next (shareable URLs, SEO, map)_
+_Last updated: Phase 4 complete ✓ — Phase 5 next (mobile QA, animations, polish)_

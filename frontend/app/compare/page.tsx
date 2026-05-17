@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useMutation } from "@tanstack/react-query"
-import { AlertCircle } from "lucide-react"
+import { AlertCircle, Link2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { PostcodeAutocomplete } from "@/components/postcode-autocomplete"
 import { CompareProgress } from "@/components/compare-progress"
@@ -120,7 +120,13 @@ export default function ComparePage() {
 
   // ── Success ────────────────────────────────────────────────────────────────
   if (mutation.isSuccess) {
-    return <CompareResults data={mutation.data} onReset={handleReset} />
+    const shareUrl = `/compare/${mutation.data.postcode_a.replace(/\s/g, "")}/${mutation.data.postcode_b.replace(/\s/g, "")}`
+    return (
+      <>
+        <ShareBanner url={shareUrl} />
+        <CompareResults data={mutation.data} onReset={handleReset} />
+      </>
+    )
   }
 
   // ── Form ───────────────────────────────────────────────────────────────────
@@ -190,5 +196,30 @@ export default function ComparePage() {
         </form>
       </div>
     </main>
+  )
+}
+
+function ShareBanner({ url }: { url: string }) {
+  const [copied, setCopied] = useState(false)
+  const full = `https://crimecompare.co.uk${url}`
+
+  function copy() {
+    navigator.clipboard.writeText(full).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    })
+  }
+
+  return (
+    <div className="bg-muted/50 border-b border-border px-4 py-2 flex items-center justify-center gap-3 text-sm">
+      <Link2 className="size-4 shrink-0 text-muted-foreground" />
+      <span className="text-muted-foreground truncate max-w-xs">{full}</span>
+      <button
+        onClick={copy}
+        className="text-xs font-medium text-primary hover:underline shrink-0"
+      >
+        {copied ? "Copied!" : "Copy link"}
+      </button>
+    </div>
   )
 }

@@ -1,5 +1,7 @@
 "use client"
 
+import dynamic from "next/dynamic"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { CompareResponse } from "@/types/compare"
 import { WinnerBanner } from "./winner-banner"
@@ -8,6 +10,8 @@ import { CategoriesChart } from "./categories-chart"
 import { TrendChart } from "./trend-chart"
 import { SeverityChart } from "./severity-chart"
 import { TextSummary } from "./text-summary"
+
+const CompareMap = dynamic(() => import("./compare-map"), { ssr: false })
 
 const COLOR_A = "#1D9E75"
 const COLOR_B = "#378ADD"
@@ -23,7 +27,7 @@ const RADIUS_LABELS: Record<string, string> = {
 
 interface Props {
   data: CompareResponse
-  onReset: () => void
+  onReset?: () => void   // absent in SSR context — shows Link instead
 }
 
 export function CompareResults({ data, onReset }: Props) {
@@ -50,9 +54,18 @@ export function CompareResults({ data, onReset }: Props) {
               {radiusLabel} radius · {monthRange}
             </p>
           </div>
-          <Button variant="outline" size="sm" onClick={onReset}>
-            Compare again
-          </Button>
+          {onReset ? (
+            <Button variant="outline" size="sm" onClick={onReset}>
+              Compare again
+            </Button>
+          ) : (
+            <Link
+              href="/compare"
+              className="inline-flex h-7 items-center rounded-[min(var(--radius-md),12px)] border border-border bg-background px-2.5 text-[0.8rem] font-medium text-foreground transition-colors hover:bg-muted"
+            >
+              Compare again
+            </Link>
+          )}
         </div>
 
         <WinnerBanner data={data} />
@@ -60,6 +73,7 @@ export function CompareResults({ data, onReset }: Props) {
         <CategoriesChart data={data} />
         <TrendChart data={data} />
         <SeverityChart data={data} />
+        <CompareMap data={data} />
         <TextSummary data={data} />
       </div>
     </div>
