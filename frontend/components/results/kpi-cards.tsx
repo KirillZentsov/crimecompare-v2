@@ -1,6 +1,17 @@
 "use client"
 
+import { motion, type Variants } from "framer-motion"
 import { CompareResponse } from "@/types/compare"
+
+const stagger: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.07 } },
+}
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 12 },
+  show:   { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" } },
+}
 
 const COLOR_A = "#1D9E75"
 const COLOR_B = "#378ADD"
@@ -62,42 +73,53 @@ export function KpiCards({ data }: Props) {
   const riskB = riskLevel(qb.risk_score)
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-      <KpiCard
-        title="Total crimes (3 months)"
-        valueA={qa.total_crimes.toLocaleString()}
-        valueB={qb.total_crimes.toLocaleString()}
-        labelA={postcode_a}
-        labelB={postcode_b}
-      />
-      <KpiCard
-        title="Risk score"
-        valueA={
-          <span className="flex items-center gap-2">
-            {qa.risk_score}
-            <span className={`text-xs font-medium px-1.5 py-0.5 rounded ${riskA.bg} ${riskA.text}`}>
-              {riskA.label}
+    <motion.div
+      className="grid grid-cols-1 sm:grid-cols-3 gap-4"
+      variants={stagger}
+      initial="hidden"
+      animate="show"
+    >
+      <motion.div variants={fadeUp}>
+        <KpiCard
+          title="Total crimes (3 months)"
+          valueA={qa.total_crimes.toLocaleString()}
+          valueB={qb.total_crimes.toLocaleString()}
+          labelA={postcode_a}
+          labelB={postcode_b}
+        />
+      </motion.div>
+      <motion.div variants={fadeUp}>
+        <KpiCard
+          title="Risk score"
+          valueA={
+            <span className="flex items-center gap-2">
+              {qa.risk_score}
+              <span className={`text-xs font-medium px-1.5 py-0.5 rounded ${riskA.bg} ${riskA.text}`}>
+                {riskA.label}
+              </span>
             </span>
-          </span>
-        }
-        valueB={
-          <span className="flex items-center gap-2">
-            {qb.risk_score}
-            <span className={`text-xs font-medium px-1.5 py-0.5 rounded ${riskB.bg} ${riskB.text}`}>
-              {riskB.label}
+          }
+          valueB={
+            <span className="flex items-center gap-2">
+              {qb.risk_score}
+              <span className={`text-xs font-medium px-1.5 py-0.5 rounded ${riskB.bg} ${riskB.text}`}>
+                {riskB.label}
+              </span>
             </span>
-          </span>
-        }
-        labelA={postcode_a}
-        labelB={postcode_b}
-      />
-      <KpiCard
-        title="Density (crimes / km²)"
-        valueA={density(qa.total_crimes, radius_meters)}
-        valueB={density(qb.total_crimes, radius_meters)}
-        labelA={postcode_a}
-        labelB={postcode_b}
-      />
-    </div>
+          }
+          labelA={postcode_a}
+          labelB={postcode_b}
+        />
+      </motion.div>
+      <motion.div variants={fadeUp}>
+        <KpiCard
+          title="Density (crimes / km²)"
+          valueA={density(qa.total_crimes, radius_meters)}
+          valueB={density(qb.total_crimes, radius_meters)}
+          labelA={postcode_a}
+          labelB={postcode_b}
+        />
+      </motion.div>
+    </motion.div>
   )
 }

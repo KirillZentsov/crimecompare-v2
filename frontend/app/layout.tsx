@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { MotionConfig } from "framer-motion";
 import { QueryProvider } from "@/components/providers/query-provider";
 import "./globals.css";
 
@@ -15,7 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
-        <QueryProvider>{children}</QueryProvider>
+        <MotionConfig reducedMotion="user">
+          <QueryProvider>{children}</QueryProvider>
+        </MotionConfig>
       </body>
     </html>
   );

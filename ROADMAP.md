@@ -44,14 +44,15 @@
 
 ## Phase 5 — Polish (2 days)
 
-- [ ] Mobile QA (vertical stack, sticky toggle)
-- [ ] Framer Motion animations
-- [ ] Comprehensive error states
-- [ ] User feedback widget
-- [ ] Final cross-browser QA
-- [ ] Cut over: update crimecompare.co.uk to point to new app
-- [ ] Decommission Streamlit (or leave as fallback)
+- [x] Mobile QA (winner banner text wrap fix, categories chart toggle sticky on mobile)
+- [x] Framer Motion animations (subtle entrances, stagger KPI cards, MotionConfig reducedMotion="user")
+- [x] Comprehensive error states (role="alert", aria-live, aria-atomic on loading/error)
+- [ ] User feedback widget — **deferred** (not needed for launch)
+- [ ] Final cross-browser QA — manual (Chrome + Firefox + Safari)
+- [x] Vercel deployment config (`frontend/vercel.json`; set NEXT_PUBLIC_API_URL env var in Vercel dashboard)
+- [ ] Cut over: update crimecompare.co.uk DNS to point to Vercel — user action
+- [ ] Decommission Streamlit — leave as fallback for now
 
 ---
 
-_Last updated: Phase 4 complete ✓ — Phase 5 next (mobile QA, animations, polish)_
+_Last updated: Phase 5 in progress — animations + mobile QA + Vercel config done; cut-over + QA remaining_

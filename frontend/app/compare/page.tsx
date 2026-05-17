@@ -82,7 +82,11 @@ export default function ComparePage() {
   // ── Loading ────────────────────────────────────────────────────────────────
   if (mutation.isPending) {
     return (
-      <main className="min-h-screen bg-background flex flex-col items-center justify-center px-4 py-12">
+      <main
+        className="min-h-screen bg-background flex flex-col items-center justify-center px-4 py-12"
+        aria-live="polite"
+        aria-label="Comparison in progress"
+      >
         <div className="w-full max-w-lg space-y-4">
           <p className="text-sm text-muted-foreground text-center">
             Comparing{" "}
@@ -101,7 +105,7 @@ export default function ComparePage() {
     return (
       <main className="min-h-screen bg-background flex flex-col items-center justify-center px-4 py-12">
         <div className="w-full max-w-lg space-y-6">
-          <div className="flex gap-3 rounded-lg border border-destructive/30 bg-destructive/5 p-4">
+          <div role="alert" aria-atomic="true" className="flex gap-3 rounded-lg border border-destructive/30 bg-destructive/5 p-4">
             <AlertCircle className="size-5 shrink-0 text-destructive mt-0.5" />
             <div className="space-y-1">
               <p className="text-sm font-medium text-destructive">Comparison failed</p>

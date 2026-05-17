@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic"
 import Link from "next/link"
+import { motion, type Variants } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { CompareResponse } from "@/types/compare"
 import { WinnerBanner } from "./winner-banner"
@@ -25,6 +26,11 @@ const RADIUS_LABELS: Record<string, string> = {
   "2mi":   "2 miles",
 }
 
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 12 },
+  show:   { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" } },
+}
+
 interface Props {
   data: CompareResponse
   onReset?: () => void   // absent in SSR context — shows Link instead
@@ -43,7 +49,10 @@ export function CompareResults({ data, onReset }: Props) {
       <div className="max-w-2xl mx-auto space-y-6">
 
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <motion.div
+          variants={fadeUp} initial="hidden" animate="show"
+          className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
+        >
           <div>
             <h1 className="text-2xl font-bold tracking-tight">
               <span style={{ color: COLOR_A }}>{postcode_a}</span>
@@ -66,15 +75,30 @@ export function CompareResults({ data, onReset }: Props) {
               Compare again
             </Link>
           )}
-        </div>
+        </motion.div>
 
         <WinnerBanner data={data} />
         <KpiCards data={data} />
-        <CategoriesChart data={data} />
-        <TrendChart data={data} />
-        <SeverityChart data={data} />
-        <CompareMap data={data} />
-        <TextSummary data={data} />
+
+        <motion.div variants={fadeUp} initial="hidden" animate="show">
+          <CategoriesChart data={data} />
+        </motion.div>
+
+        <motion.div variants={fadeUp} initial="hidden" animate="show">
+          <TrendChart data={data} />
+        </motion.div>
+
+        <motion.div variants={fadeUp} initial="hidden" animate="show">
+          <SeverityChart data={data} />
+        </motion.div>
+
+        <motion.div variants={fadeUp} initial="hidden" animate="show">
+          <CompareMap data={data} />
+        </motion.div>
+
+        <motion.div variants={fadeUp} initial="hidden" animate="show">
+          <TextSummary data={data} />
+        </motion.div>
       </div>
     </div>
   )

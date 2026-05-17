@@ -73,7 +73,7 @@ export function CategoriesChart({ data }: Props) {
 
   return (
     <div className="rounded-lg border border-border bg-card p-4 space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="sticky top-0 z-10 bg-card flex items-center justify-between pb-3 border-b border-border -mx-4 px-4">
         <p className="text-sm font-medium text-foreground">Crime categories (top 10)</p>
         <div className="flex rounded-md border border-border overflow-hidden text-xs">
           {(["side-by-side", "overlay"] as const).map((m) => (

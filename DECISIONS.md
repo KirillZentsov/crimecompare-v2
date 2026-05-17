@@ -128,3 +128,24 @@ Move the map to Phase 4 alongside the dynamic route `/compare/[a]/[b]`. The SSR 
 
 **Consequences:**
 Phase 3 ships KPI cards, winner banner, and 3 Recharts charts without the map complexity. Phase 4 adds the map once the SSR infrastructure is in place.
+
+---
+
+## ADR-009 — Animation scope: Subtle entrances only
+
+**Date:** 2026-05-17
+**Status:** Accepted
+
+**Context:**
+Phase 5 adds Framer Motion to improve perceived quality. Multiple scopes were considered.
+
+**Decision:**
+- `MotionConfig reducedMotion="user"` at layout level (WCAG 2.1 SC 2.3.3 — motion honours OS preference automatically)
+- Fade + slide-up (`y: 12→0`, 350ms ease-out) for result sections and cards
+- `staggerChildren: 70ms` for KPI card grid only — "wave" appearance
+- No hover-lift on cards; hover reserved for interactive elements (buttons, toggles)
+- Recharts default animation retained (`isAnimationActive=true`, ~600ms ease-out)
+- Risk score renders with final value immediately; only the card container animates
+
+**Consequences:**
+Polished feel without distracting data-heavy users. Users with `prefers-reduced-motion: reduce` get zero animation automatically via `MotionConfig`.
